@@ -12,7 +12,7 @@
   "plugins": ["unused-imports", "@typescript-eslint"],
   "rules": {
     "no-var": "error",
-    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",

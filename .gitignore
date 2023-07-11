@@ -24,3 +24,6 @@ yarn-error.log*
 
 # mocking data
 src/mocking
+
+# eslint cache
+.eslintcache
