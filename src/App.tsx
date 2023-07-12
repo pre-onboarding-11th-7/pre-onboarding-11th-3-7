@@ -1,23 +1,31 @@
 import { Banner, IssueCard, Layout } from "./components";
-import { ISSUES } from "./mocking/issues";
+import useIssues from "./hooks/services/useIssues";
+import { Link } from "react-router-dom";
 
 function App() {
-  const mockingData = ISSUES;
+  const { state } = useIssues();
   return (
     <Layout>
       <ul>
-        {mockingData?.map((issue, idx) => (
+        {state?.map((issue, idx) => (
           <li key={issue.node_id}>
             {(idx + 1) % 5 ? (
-              <IssueCard
-                title={issue.title}
-                issueNo={issue.number}
-                author={issue.user.login}
-                createdAt={new Date(issue.created_at)}
-                commentsCount={issue.comments}
-              />
+              <Link to={`/${issue.number}`}>
+                <IssueCard
+                  title={issue.title}
+                  issueNo={issue.number}
+                  author={issue.user.login}
+                  createdAt={new Date(issue.created_at)}
+                  commentsCount={issue.comments}
+                />
+              </Link>
             ) : (
-              <Banner />
+              <Link
+                to="https://wanted.co.kr"
+                target="_blank"
+                rel="noopener noreferrer">
+                <Banner />
+              </Link>
             )}
           </li>
         ))}

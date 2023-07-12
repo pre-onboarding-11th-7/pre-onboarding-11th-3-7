@@ -43,6 +43,10 @@ export class IssuesService {
 
   async fetch() {
     const response = await (await this.httpClient.fetch(this.issuesURL + this.baseQuery)).json();
+    // 잘못된 요청 시 response에 message가 담겨 옴
+    if (Object.hasOwn(response, "message")){
+      throw ...
+    }
     return response;
   }
 }
@@ -57,6 +61,7 @@ const IssuesContext = createContext(null);
 export const useIssuesContext = () => useContext(IssuesContext);
 
 const IssuesProvider = ({ children, issuesInstance }) => {
+  const issuesFetch = issuesInstance.fetch;
   return (
     <IssuesContext.Provider value={issuesInstance}>
       {children}
@@ -76,12 +81,12 @@ export default IssuesProvider;
 
 ```js
 async function useIssues() {
-  const { issuesInstance } = useIssuesContext();
+  const { issuesFetch } = useIssuesContext();
   const { state, loading, error, refetch } = useFetch(issuesInstance);
 
   useEffect(() => {
-    refetch((prev) => !prev);
-  }, [issueOpt.owner, issueOpt.repo]);
+    issuesFetch().then(...).catch(...);
+  }, [owner, repo]);
 
   return { state, loading, error, changeOrgAndRepo: setIssueOpt };
 }
@@ -107,6 +112,8 @@ export class AnIssueService {
     const response = await (
       await this.httpClient.fetch(this.issuesURL + "/" + this.issueNumber)
     ).json();
+
+    // Issues와 동일하게 에러 핸들링
     return response;
   }
 }
@@ -121,8 +128,9 @@ const AnIssueContext = createContext(null);
 export const useAnIssueContext = () => useContext(AnIssueContext);
 
 const AnIssueProvider = ({ children, anIssueInstance }) => {
+  const auIssueFetch = anIssueInstance.fetch;
   return (
-    <AnIssueContext.Provider value={{ anIssueInstance }}>
+    <AnIssueContext.Provider value={{ auIssueFetch }}>
       {children}
     </AnIssueContext.Provider>
   );
@@ -135,22 +143,27 @@ export default AnIssueProvider;
 
 - issue number를 param으로 사용
 - api 주소는 ~~어떻게?~~ -> `An Issue Context`로 해결
+- `react router`의 `useParams`로 이슈 번호 가져옴
 
 ```js
 async function useAnIssue(issueNumber) {
-  const { anIssueInstance } = useAnIssueContext();
-  anIssueInstance.issueNumber(issueNumber);
+  const { number } = useParams<ParamsType>();
+  const { auIssueFetch } = useAnIssueContext();
   const { state, loading, error } = useFetch(issuesInstance);
 
   useEffect(() => {
-    refetch((prev) => !prev);
+    if (number) {
+      auIssueFetch().then(...).catch(...)
+    }
   }, [issueOpt.owner, issueOpt.repo]);
 
   return { state, loading, error };
 }
 ```
 
-## 5. useFetching
+## 5. useFetching (**Deprecate**)
+
+### 방법을 좀 더 고민해봐야 할 듯
 
 - 서비스 훅 내에서 API 요청만 담당하는 훅
 - 부가적인 params와 query를 인자로 받고 `fetch`함
