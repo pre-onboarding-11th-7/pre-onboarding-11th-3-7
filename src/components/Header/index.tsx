@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+
 export const Header = ({ owner, repo }: HeaderProps) => {
   return (
     <header>
-      <h1>
-        {owner} / {repo}
-      </h1>
+      <Link to={"/"}>
+        <h1>
+          {owner} / {repo}
+        </h1>
+      </Link>
     </header>
   );
 };

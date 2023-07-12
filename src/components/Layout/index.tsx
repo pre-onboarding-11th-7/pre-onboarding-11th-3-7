@@ -3,12 +3,12 @@ import { Header } from "../Header";
 import { useIssuesContext } from "../../contexts/issues";
 
 export const Layout = ({ children }: LayoutProps) => {
-  const issuesInstance = useIssuesContext();
+  const { issuesOwnerAndRepo } = useIssuesContext();
   return (
     <main>
       <Header
-        owner={issuesInstance?.owner ?? "Loading..."}
-        repo={issuesInstance?.repo ?? "Loading..."}
+        owner={issuesOwnerAndRepo.owner ?? "Loading..."}
+        repo={issuesOwnerAndRepo.repo ?? "Loading..."}
       />
       {children}
     </main>

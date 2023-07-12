@@ -21,12 +21,16 @@ export class IssuesService {
   setChangeURL({ owner, repo }: { owner: string; repo: string }) {
     this.owner = owner;
     this.repo = repo;
+    return this.issuesURL;
   }
 
   async fetch() {
     const response = await (
       await this.httpClient.fetch(this.issuesURL + this.baseQuery)
     ).json();
+    if (Object.hasOwn(response, "message")) {
+      throw new Error(response.message);
+    }
     return response;
   }
 }
