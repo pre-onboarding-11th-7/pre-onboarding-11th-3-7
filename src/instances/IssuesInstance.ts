@@ -21,6 +21,7 @@ export class IssuesService {
   setChangeURL({ owner, repo }: { owner: string; repo: string }) {
     this.owner = owner;
     this.repo = repo;
+    this.issuesURL = `${this.owner}/${this.repo}/issues`;
     return this.issuesURL;
   }
 

@@ -15,6 +15,9 @@ export class AnIssueService {
     const response = await (
       await this.httpClient.fetch(`${this.issuesURL}/${number}`)
     ).json();
+    if (Object.hasOwn(response, "message")) {
+      throw new Error(response.message);
+    }
     return response;
   }
 }

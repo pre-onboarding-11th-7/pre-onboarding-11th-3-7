@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { IssueResponseType } from "issue";
 import { useAnIssueContext } from "../../contexts/anIssue";
 import { useParams } from "react-router-dom";
+import { useErrorMessageContext } from "../../contexts/errorMessage";
 
 function useAnIssue() {
   const { number } = useParams<ParamsType>();
   const { anIssueFetch } = useAnIssueContext();
+  const { setErrorMsg } = useErrorMessageContext();
   const [fetchState, setFetchState] = useState<State>({
     state: null,
     loading: true,
@@ -17,7 +19,10 @@ function useAnIssue() {
       .then((response) =>
         setFetchState({ ...fetchState, state: response, loading: false })
       )
-      .catch((e) => setFetchState({ ...fetchState, loading: false, error: e }));
+      .catch((e: Error) => {
+        setFetchState({ ...fetchState, loading: false, error: e });
+        setErrorMsg(e.message);
+      });
   }, [number, fetchState.loading]);
   return {
     state: fetchState.state,
