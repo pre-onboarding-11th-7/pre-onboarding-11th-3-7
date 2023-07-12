@@ -1,3 +1,3 @@
 export function IssueListPage() {
-  return <div>test</div>;
+  return <main>test</main>;
 }
