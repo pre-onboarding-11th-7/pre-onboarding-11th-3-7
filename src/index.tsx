@@ -6,7 +6,8 @@ import { ListService } from "./api/ListService";
 import { HttpClient } from "./api/httpClient/httpClient";
 
 const httpClient = new HttpClient(
-  process.env.REACT_APP_BASE_URL || "default-value"
+  process.env.REACT_APP_BASE_URL || "default-value",
+  process.env.REACT_APP_GITHUB_TOKEN || "default-value"
 );
 
 const listService = new ListService(httpClient);

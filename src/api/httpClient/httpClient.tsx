@@ -1,9 +1,11 @@
 import axios from "axios";
 export class HttpClient {
   private baseURL: string;
+  private token: string;
 
-  constructor(baseURL: string) {
+  constructor(baseURL: string, token: string) {
     this.baseURL = baseURL;
+    this.token = token;
   }
 
   request(url: string, method: string, options = {}) {
@@ -13,6 +15,7 @@ export class HttpClient {
       data: options,
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer" + this.token,
       },
     });
   }
