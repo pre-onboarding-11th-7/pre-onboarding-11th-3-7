@@ -12,12 +12,17 @@ class GitHubIssueRepository extends HttpClient {
   }
 
   async getIssueListPage() {
-    const data = await super.get<GitHubIssue[]>(this.path, {
+    const data = await this.get<GitHubIssue[]>(this.path, {
       params: { sort: 'comments', page: this.issueListPageNumber },
     });
 
     this.issueListPageNumber += 1;
 
+    return data;
+  }
+
+  async getIssue(issueNumber: number) {
+    const data = await this.get<GitHubIssue>(`${this.path}/${issueNumber}`);
     return data;
   }
 }

@@ -7,6 +7,10 @@ class HttpClient {
     this.axios = Axios.create({
       baseURL: isGitHub ? 'https://api.github.com/' : '/',
     });
+
+    if (import.meta.env.VITE_IS_DEVELOPMENT) {
+      this.interceptRequest();
+    }
   }
 
   async get<Response = unknown>(url: string, config?: AxiosRequestConfig) {
@@ -17,6 +21,13 @@ class HttpClient {
   async post<Response = unknown, Request = any>(url: string, body?: Request) {
     const res = await this.axios.post<Response>(url, body);
     return res.data;
+  }
+
+  private interceptRequest() {
+    this.axios.interceptors.request.use(config => {
+      config.headers.Authorization = `Bearer ${import.meta.env.VITE_GH_TOKEN}`;
+      return config;
+    });
   }
 }
 
