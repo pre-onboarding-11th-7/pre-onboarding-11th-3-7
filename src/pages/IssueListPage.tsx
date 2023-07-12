@@ -1,3 +1,10 @@
+import { Header } from 'components/Header';
+
 export function IssueListPage() {
-  return <main>test</main>;
+  return (
+    <>
+      <Header owner="facebook" repo="react" />
+      <main></main>
+    </>
+  );
 }
