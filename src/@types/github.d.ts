@@ -12,6 +12,7 @@ declare module 'github' {
     number: number;
     comments: number;
     created_at: string;
+    body: string;
     user: GitHubUser;
   }
 }
