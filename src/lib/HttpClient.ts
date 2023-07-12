@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 
 class HttpClient {
   protected axios;
@@ -9,8 +9,8 @@ class HttpClient {
     });
   }
 
-  async get<Response = unknown>(url: string) {
-    const res = await this.axios.get<Response>(url);
+  async get<Response = unknown>(url: string, config?: AxiosRequestConfig) {
+    const res = await this.axios.get<Response>(url, config);
     return res.data;
   }
 
