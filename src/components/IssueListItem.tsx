@@ -10,7 +10,7 @@ interface IssueListItemProps extends GitHubIssue {
   hasLink: boolean;
 }
 
-export function IssueListItem({ number, title, comments, created_at, user, hasLink }: IssueListItemProps) {
+export function IssueListItem({ number, title, comments, created_at, user, hasLink, ...props }: IssueListItemProps) {
   const location = useLocation();
 
   const IssueTitle = (
@@ -37,6 +37,7 @@ export function IssueListItem({ number, title, comments, created_at, user, hasLi
         </div>
       }
       comment={<>코멘트: {comments}</>}
+      {...props}
     />
   );
 }
@@ -61,12 +62,13 @@ function IssueItemTemplate({ title, detail, comment }: IssueItemTemplateProps) {
   return (
     <li
       css={{
+        width: '100%',
         lineHeight: 1.3,
         padding: '1rem 0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        gap: '7%',
+        gap: '5%',
         borderBottom: `1px solid ${colors.border}`,
       }}
     >
