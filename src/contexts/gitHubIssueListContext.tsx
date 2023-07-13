@@ -26,18 +26,13 @@ export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueLi
   const gitHubIssueRepository = useMemo(() => new GitHubIssueRepository({ owner, repo }), [owner, repo]);
 
   useEffect(() => {
-    if (issueList.length > 0) {
-      return;
-    }
-
     gitHubIssueRepository.getIssueListPage().then(initalIssueList => {
       setIssueList(initalIssueList);
       setIsLoading(false);
     });
-  }, [gitHubIssueRepository, issueList]);
+  }, [gitHubIssueRepository]);
 
   const fetchNextIssueList = async () => {
-    console.log('test');
     if (isLoading) {
       return;
     }
