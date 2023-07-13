@@ -29,6 +29,7 @@ export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueLi
     if (issueList.length > 0) {
       return;
     }
+
     gitHubIssueRepository.getIssueListPage().then(initalIssueList => {
       setIssueList(initalIssueList);
       setIsLoading(false);
@@ -36,9 +37,15 @@ export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueLi
   }, [gitHubIssueRepository, issueList]);
 
   const fetchNextIssueList = async () => {
+    console.log('test');
+    if (isLoading) {
+      return;
+    }
+
     setIsLoading(true);
+
     const nextIssueList = await gitHubIssueRepository.getIssueListPage();
-    setIssueList([...issueList, ...nextIssueList]);
+    setIssueList(state => [...state, ...nextIssueList]);
     setIsLoading(false);
   };
 

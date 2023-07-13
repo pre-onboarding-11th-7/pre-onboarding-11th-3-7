@@ -7,7 +7,9 @@ interface HeaderProps {
 
 export function Header({ owner, repo }: HeaderProps) {
   return (
-    <header css={{ padding: '20px', background: colors.background, position: 'fixed', top: 0, left: 0, right: 0 }}>
+    <header
+      css={{ zIndex: 1, padding: '20px', background: colors.background, position: 'fixed', top: 0, left: 0, right: 0 }}
+    >
       <h1
         css={{
           fontSize: '2rem',

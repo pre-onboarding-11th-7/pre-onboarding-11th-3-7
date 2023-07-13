@@ -1,24 +1,32 @@
 import { Fragment } from 'react';
 import { GitHubIssue } from 'github';
 import { useGitHubIssueList } from 'contexts/gitHubIssueListContext';
+import useIntersect from 'hooks/useIntersect';
 import colors from 'constants/colors';
 import convertToKoreanDate from 'utils/convertToKoreanDate';
 import { Skeleton } from './Skeleton';
 
 export function IssueList() {
-  const { issueList, isLoading } = useGitHubIssueList();
-
-  if (isLoading) {
-    return <IssueListSkeleton />;
-  }
+  const { issueList, fetchNextIssueList, isLoading } = useGitHubIssueList();
+  const intersectRef = useIntersect(() => fetchNextIssueList());
 
   return (
     <ul css={{ listStyle: 'none', padding: 0 }}>
       {issueList.map(gitHubIssue => (
         <IssueItem key={gitHubIssue.id} {...gitHubIssue} />
       ))}
+      {isLoading ? <IssueListSkeleton /> : <div ref={intersectRef} css={{ height: '1px' }} />}
     </ul>
   );
+}
+
+function IssueListSkeleton() {
+  return Array.from({ length: 30 }, (_, i) => (
+    <Fragment key={i}>
+      <Skeleton css={{ width: '100%', height: '4rem', margin: '1rem 0' }} />
+      <hr />
+    </Fragment>
+  ));
 }
 
 function IssueItem({ number, title, comments, created_at, user }: GitHubIssue) {
@@ -45,19 +53,6 @@ function IssueItem({ number, title, comments, created_at, user }: GitHubIssue) {
       </div>
       <div css={{ fontSize: FONT_SIZE.medium, minWidth: '6rem', textAlign: 'end' }}>코멘트: {comments}</div>
     </li>
-  );
-}
-
-function IssueListSkeleton() {
-  return (
-    <>
-      {Array.from({ length: 30 }, (_, i) => (
-        <Fragment key={i}>
-          <Skeleton css={{ width: '100%', height: '4rem', margin: '1rem 0' }} />
-          <hr />
-        </Fragment>
-      ))}
-    </>
   );
 }
 

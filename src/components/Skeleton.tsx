@@ -7,7 +7,7 @@ export function Skeleton({ ...props }: HTMLAttributes<HTMLDivElement>) {
     <div
       css={{
         borderRadius: '0.5rem',
-        background: colors.grey100,
+        background: colors.grey200,
         animation: `${skeletonLoading} 1s ease-in-out infinite`,
       }}
       {...props}
