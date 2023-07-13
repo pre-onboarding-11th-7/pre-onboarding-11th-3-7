@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { GitHubIssue } from 'github';
 import GitHubIssueRepository from 'repository/api/GitHubIssueRepository';
 
@@ -21,6 +21,7 @@ interface GitHubIssueListProviderProps {
 }
 
 export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueListProviderProps) => {
+  const isEndRef = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [issueList, setIssueList] = useState<GitHubIssue[]>([]);
   const gitHubIssueRepository = useMemo(() => new GitHubIssueRepository({ owner, repo }), [owner, repo]);
@@ -33,13 +34,18 @@ export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueLi
   }, [gitHubIssueRepository]);
 
   const fetchNextIssueList = async () => {
-    if (isLoading) {
+    if (isLoading || isEndRef.current) {
       return;
     }
 
     setIsLoading(true);
 
     const nextIssueList = await gitHubIssueRepository.getIssueListPage();
+
+    if (nextIssueList.length === 0) {
+      isEndRef.current = true;
+    }
+
     setIssueList(state => [...state, ...nextIssueList]);
     setIsLoading(false);
   };

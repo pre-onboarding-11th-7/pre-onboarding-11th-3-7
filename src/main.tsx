@@ -4,18 +4,27 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
 import App from './App.tsx';
+import HomePage from 'pages/HomePage.tsx';
 import { IssueListPage } from 'pages/IssueListPage.tsx';
 import IssueDetailPage from 'pages/IssueDetailPage.tsx';
-import routes from 'constants/routes.ts';
+import NotFoundPage from 'pages/404.tsx';
 
 const router = createBrowserRouter([
   {
-    path: `${routes.issues}/:owner/:repo`,
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/issues/:owner/:repo',
     element: <IssueListPage />,
   },
   {
-    path: `${routes.issues}/:owner/:repo/:issueNumber`,
+    path: '/issues/:owner/:repo/:issueNumber',
     element: <IssueDetailPage />,
+  },
+  {
+    path: '/*',
+    element: <NotFoundPage />,
   },
 ]);
 

@@ -1,5 +1,5 @@
 const routes = {
-  issues: '/issues',
+  issues: ({ owner, repo }: { owner: string; repo: string }) => `/issues/${owner}/${repo}`,
 };
 
 export default routes;
