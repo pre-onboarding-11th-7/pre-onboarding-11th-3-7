@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import Home from "./pages/Home";
 import { HttpClient } from "./instances/HttpClient";
@@ -10,6 +9,8 @@ import AnIssueProvider from "./contexts/anIssue";
 import { AnIssueService } from "./instances/AnIssueInstance";
 import ErrorMsgProvider from "./contexts/errorMessage";
 import { ErrorBoundary } from "./components";
+import "./styles/index.css";
+import NotFound from "./pages/NotFound";
 
 const httpClient = new HttpClient();
 const issuesInstance = new IssuesService(httpClient);
@@ -42,7 +43,7 @@ root.render(
                 </AnIssueProvider>
               }
             />
-            <Route path="*" element={<div>404</div>} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </IssuesProvider>

@@ -3,8 +3,13 @@ const BANNER_URL =
 
 export const Banner = () => {
   return (
-    <picture>
-      <img src={BANNER_URL} loading="lazy" alt="wanted logo" />
-    </picture>
+    <figure className="h-32 w-full dark:bg-white rounded-md">
+      <img
+        src={BANNER_URL}
+        loading="lazy"
+        alt="wanted logo"
+        className="h-full mx-auto"
+      />
+    </figure>
   );
 };
