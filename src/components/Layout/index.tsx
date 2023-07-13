@@ -10,7 +10,9 @@ export const Layout = ({ children }: LayoutProps) => {
         owner={issuesOwnerAndRepo.owner ?? "Loading..."}
         repo={issuesOwnerAndRepo.repo ?? "Loading..."}
       />
-      <section className="mt-12">{children}</section>
+      <section className="mt-16 max-w-screen-lg mx-auto h-[80vh]">
+        {children}
+      </section>
     </main>
   );
 };

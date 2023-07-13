@@ -1,8 +1,13 @@
 export const Avatar = ({ avatarUrl, userName }: AvatarProps) => {
   return (
-    <picture>
-      <img src={avatarUrl} alt={userName} loading="lazy" />
-    </picture>
+    <figure className="w-32 h-32 rounded-full bg-gray-300">
+      <img
+        src={avatarUrl}
+        alt={userName}
+        loading="lazy"
+        className="rounded-full"
+      />
+    </figure>
   );
 };
 

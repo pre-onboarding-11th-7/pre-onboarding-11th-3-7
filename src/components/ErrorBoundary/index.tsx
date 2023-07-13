@@ -13,7 +13,9 @@ export const ErrorBoundary = ({ children }: ErrorBoundary) => {
   if (errorMsg || !isValidElement(children)) {
     return (
       <Layout>
-        <ErrorElement errorMsg={errorMsg} />
+        <div className="flex flex-col justify-center items-center h-full">
+          <ErrorElement errorMsg={errorMsg} />
+        </div>
       </Layout>
     );
   }

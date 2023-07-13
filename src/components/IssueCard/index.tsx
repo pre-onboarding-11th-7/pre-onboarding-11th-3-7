@@ -8,7 +8,7 @@ export const IssueCard = ({
   commentsCount,
 }: IssueCard) => {
   return (
-    <article className="grid grid-flow-col border-2 border-solid rounded-md py-3 px-2 shadow-md shadow-gray-500 min-h-32 h-32 max-h-32 active:shadow-none">
+    <article className="grid grid-flow-col border-2 border-solid rounded-md py-3 px-2 shadow-md shadow-gray-500 min-h-32 h-32 max-h-32 active:shadow-none w-full">
       <div className="space-y-3 flex flex-col justify-around">
         <h2 className="text-2xl font-semibold">
           #{issueNo} {title}

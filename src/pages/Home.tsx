@@ -19,7 +19,7 @@ const Home = () => {
   ));
   return (
     <Layout>
-      <ul className="py-5 space-y-4 dark:text-white">
+      <ul className="py-5 space-y-4 dark:text-white w-full">
         {loading
           ? Array(20)
               .fill(0)

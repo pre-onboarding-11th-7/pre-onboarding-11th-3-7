@@ -1,5 +1,5 @@
 export const ErrorElement = ({ errorMsg }: ErrorElement) => {
-  return <strong>{errorMsg}</strong>;
+  return <strong className="text-4xl font-extrabold">{errorMsg}</strong>;
 };
 
 interface ErrorElement {
