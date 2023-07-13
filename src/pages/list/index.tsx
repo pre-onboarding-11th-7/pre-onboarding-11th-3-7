@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useList } from "../../context/listContext";
+import { useList } from "../../context/ListContext";
 import IssueList from "../../components/IssueList";
 import { useInView } from "react-intersection-observer";
-import { useSetPageNum } from "../../context/pageNumContext";
+import { useSetPageNum } from "../../context/PageNumContext";
+
 function List() {
   const list = useList();
   const [ref, inview] = useInView();
