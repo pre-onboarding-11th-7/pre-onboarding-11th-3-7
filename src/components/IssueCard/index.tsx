@@ -1,4 +1,6 @@
 import React from "react";
+import * as s from "./style";
+
 interface IssueCardProps {
   title: string;
   userId: string;
@@ -8,12 +10,14 @@ interface IssueCardProps {
 
 function IssueCard({ title, userId, created_at, comments }: IssueCardProps) {
   return (
-    <div>
-      <span>{title}</span>
-      <span>{userId}</span>
-      <span>{created_at}</span>
-      <span>{comments}</span>
-    </div>
+    <s.Item>
+      <h3>{title}</h3>
+      <div>
+        <span>작성자 {userId}</span>
+        <span>작성일: {created_at}</span>
+        <span>댓글 수: {comments}</span>
+      </div>
+    </s.Item>
   );
 }
 
