@@ -23,14 +23,11 @@ export function ListProvider({
   const pageNum = usePageNum();
 
   useEffect(() => {
-    const data = listService.get().then(setList);
-    console.log("초기 값" + data);
+    listService.get().then(setList);
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(pageNum);
-
       try {
         const newList = await listService.get(pageNum);
         setList((prevList) => [...prevList, ...newList]);
