@@ -17,9 +17,6 @@ export function Header({ owner, repo }: HeaderProps) {
           textAlign: 'center',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          ['@media screen and (max-width: 480px)']: {
-            fontSize: ' 1.5rem',
-          },
         }}
       >
         {owner} / {repo}

@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { ReactNode } from 'react';
 import { GitHubIssue } from 'github';
 import { useGitHubIssueList } from 'contexts/gitHubIssueListContext';
 import useIntersect from 'hooks/useIntersect';
@@ -22,36 +22,65 @@ export function IssueList() {
 
 function IssueListSkeleton() {
   return Array.from({ length: 30 }, (_, i) => (
-    <Fragment key={i}>
-      <Skeleton css={{ width: '100%', height: '4rem', margin: '1rem 0' }} />
-      <hr />
-    </Fragment>
+    <IssueItemTemplate
+      key={i}
+      title={<Skeleton css={{ width: '100%', height: '2rem' }} />}
+      detail={<Skeleton css={{ width: '50%', height: '1.5rem' }} />}
+      comment={<Skeleton css={{ width: '4.5rem', height: '1.5rem' }} />}
+    />
   ));
 }
 
 function IssueItem({ number, title, comments, created_at, user }: GitHubIssue) {
   return (
-    <li
-      css={{
-        padding: '1rem 0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid',
-      }}
-    >
-      <div css={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+    <IssueItemTemplate
+      title={
         <h2
-          css={{ cursor: 'pointer', fontSize: FONT_SIZE.large, fontWeight: 600, ':hover': { color: colors.blue400 } }}
+          css={{
+            cursor: 'pointer',
+            fontSize: FONT_SIZE.large,
+            fontWeight: 600,
+            ':hover': { color: colors.blue400 },
+          }}
         >
           <span css={{ color: colors.grey600 }}>#{number}</span> {title}
         </h2>
+      }
+      detail={
         <div css={{ fontSize: FONT_SIZE.medium }}>
           <h3 css={{ display: 'inline-block', marginRight: '0.3rem' }}>작성자: {user.login},</h3>
           <time dateTime={created_at}>작성일: {convertToKoreanDate(created_at)}</time>
         </div>
+      }
+      comment={<>코멘트: {comments}</>}
+    />
+  );
+}
+
+interface IssueItemTemplateProps {
+  title: ReactNode;
+  detail: ReactNode;
+  comment: ReactNode;
+}
+
+function IssueItemTemplate({ title, detail, comment }: IssueItemTemplateProps) {
+  return (
+    <li
+      css={{
+        lineHeight: 1.3,
+        padding: '1rem 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '7%',
+        borderBottom: '1px solid',
+      }}
+    >
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', flexGrow: 1 }}>
+        {title}
+        {detail}
       </div>
-      <div css={{ fontSize: FONT_SIZE.medium, minWidth: '6rem', textAlign: 'end' }}>코멘트: {comments}</div>
+      <div css={{ fontSize: FONT_SIZE.medium, textAlign: 'end', whiteSpace: 'nowrap' }}>{comment}</div>
     </li>
   );
 }
