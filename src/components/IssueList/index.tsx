@@ -5,10 +5,10 @@ import Ad from "../Ad";
 function IssueList() {
   const list = useList();
   return (
-    <div>
+    <ul>
       {list ? (
-        list.map(({ id, title, user, created_at, comments }, index) => (
-          <React.Fragment key={id}>
+        list.map(({ title, user, created_at, comments }, index) => (
+          <React.Fragment key={index}>
             <IssueCard
               title={title}
               userId={user.login}
@@ -19,9 +19,9 @@ function IssueList() {
           </React.Fragment>
         ))
       ) : (
-        <div>목록이 비었습니다</div>
+        <div>ISSUE가 없습니다</div>
       )}
-    </div>
+    </ul>
   );
 }
 

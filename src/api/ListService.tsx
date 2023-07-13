@@ -1,5 +1,6 @@
 import { HttpClient } from "./httpClient/httpClient";
 import { Issue } from "../@types/types";
+
 export class ListService {
   private httpClient: HttpClient;
 
@@ -7,9 +8,9 @@ export class ListService {
     this.httpClient = httpClient;
   }
 
-  async get() {
+  async get(pageNum?: number) {
     const { data }: { data: Issue[] } = await this.httpClient.request(
-      "/repos/facebook/react/issues?state=open&sort=comments&per_page=10",
+      `/repos/facebook/react/issues?state=open&sort=comments&per_page=10&page=${pageNum}`,
       "GET"
     );
     return data;
