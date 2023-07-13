@@ -62,7 +62,6 @@ function IssueItemTemplate({ title, detail, comment }: IssueItemTemplateProps) {
   return (
     <li
       css={{
-        width: '100%',
         lineHeight: 1.3,
         padding: '1rem 0',
         display: 'flex',
