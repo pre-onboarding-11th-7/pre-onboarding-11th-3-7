@@ -1,9 +1,22 @@
+import { memo } from "react";
 import { Banner, IssueCard, Layout } from "../components";
 import useIssues from "../hooks/services/useIssues";
 import { Link } from "react-router-dom";
+import { IssueResponseType } from "issue";
+import useInfinityScroll from "../hooks/useIfinityScroll";
 
 const Home = () => {
-  const { state, loading } = useIssues();
+  const { issues, loading, onAddFetch } = useIssues();
+  const waitingRef = useInfinityScroll(onAddFetch);
+  const MemorizedIssueCard = memo((issue: IssueResponseType) => (
+    <IssueCard
+      title={issue.title}
+      issueNo={issue.number}
+      author={issue.user.login}
+      createdAt={new Date(issue.created_at)}
+      commentsCount={issue.comments}
+    />
+  ));
   return (
     <Layout>
       <ul>
@@ -21,17 +34,11 @@ const Home = () => {
                   />
                 </li>
               ))
-          : state?.map((issue, idx) => (
+          : issues?.map((issue, idx) => (
               <li key={issue.node_id}>
                 {(idx + 1) % 5 ? (
                   <Link to={`/${issue.number}`}>
-                    <IssueCard
-                      title={issue.title}
-                      issueNo={issue.number}
-                      author={issue.user.login}
-                      createdAt={new Date(issue.created_at)}
-                      commentsCount={issue.comments}
-                    />
+                    <MemorizedIssueCard {...issue} />
                   </Link>
                 ) : (
                   <Link
@@ -43,6 +50,7 @@ const Home = () => {
                 )}
               </li>
             ))}
+        <div ref={waitingRef}>{loading ? <div>Loading...</div> : null}</div>
       </ul>
     </Layout>
   );

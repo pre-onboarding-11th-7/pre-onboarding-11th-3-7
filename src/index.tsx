@@ -19,7 +19,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  <>
     <ErrorMsgProvider>
       <IssuesProvider issuesInstance={issuesInstance}>
         <BrowserRouter>
@@ -47,5 +47,5 @@ root.render(
         </BrowserRouter>
       </IssuesProvider>
     </ErrorMsgProvider>
-  </React.StrictMode>
+  </>
 );
