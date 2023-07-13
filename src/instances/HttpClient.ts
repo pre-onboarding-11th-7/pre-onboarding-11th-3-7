@@ -9,7 +9,9 @@ export class HttpClient {
       headers: {
         "Content-Type": "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        authorization: `Bearer ${process.env.REACT_APP_GITHUB_REST_API_TOKEN}`,
+        authorization: process.env.REACT_APP_GITHUB_REST_API_TOKEN
+          ? `Bearer ${process.env.REACT_APP_GITHUB_REST_API_TOKEN}`
+          : "",
         ...options?.headers,
       },
     });
