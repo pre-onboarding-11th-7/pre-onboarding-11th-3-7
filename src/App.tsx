@@ -14,6 +14,10 @@ function App({ children }: { children: ReactNode }) {
             font-weight: normal;
             margin: 0;
           }
+          a {
+            text-decoration: none;
+            color: inherit;
+          }
         `}
       />
       <PageLayout>{children}</PageLayout>

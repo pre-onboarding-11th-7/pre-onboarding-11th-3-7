@@ -1,9 +1,13 @@
 import { Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { GitHubIssue } from 'github';
+
 import { useGitHubIssueList } from 'contexts/gitHubIssueListContext';
 import useIntersect from 'hooks/useIntersect';
 import colors from 'constants/colors';
+import routes from 'constants/routes';
 import convertToKoreanDate from 'utils/convertToKoreanDate';
+
 import { Skeleton } from './Skeleton';
 import { WantedAdvertisementImage } from './WantedAdvertisementImage';
 
@@ -48,7 +52,8 @@ function IssueItem({ number, title, comments, created_at, user }: GitHubIssue) {
   return (
     <IssueItemTemplate
       title={
-        <h2
+        <Link
+          to={`${routes.issues}/${number}`}
           css={{
             cursor: 'pointer',
             fontSize: FONT_SIZE.large,
@@ -57,7 +62,7 @@ function IssueItem({ number, title, comments, created_at, user }: GitHubIssue) {
           }}
         >
           <span css={{ color: colors.grey600 }}>#{number}</span> {title}
-        </h2>
+        </Link>
       }
       detail={
         <div css={{ fontSize: FONT_SIZE.medium }}>
