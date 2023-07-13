@@ -1,6 +1,7 @@
 export interface Issue {
   id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
+  title: string;
+  user: { login: string };
+  created_at: string;
+  comments: number;
 }
