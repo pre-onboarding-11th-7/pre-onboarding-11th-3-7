@@ -23,11 +23,11 @@ export function IssueListItem({ number, title, comments, created_at, user, hasLi
     <IssueItemTemplate
       title={
         hasLink ? (
-          <Link to={`${location.pathname}/${number}`} css={issueTitleStyle}>
+          <Link to={`${location.pathname}/${number}`} css={issueTitleStyle(hasLink)}>
             {IssueTitle}
           </Link>
         ) : (
-          <h2 css={issueTitleStyle}>{IssueTitle}</h2>
+          <h2 css={issueTitleStyle(hasLink)}>{IssueTitle}</h2>
         )
       }
       detail={
@@ -86,11 +86,12 @@ const FONT_SIZE = {
   large: '1.1rem',
 };
 
-const issueTitleStyle = css`
-  cursor: pointer;
+const issueTitleStyle = (hasLink: boolean) => css`
   font-size: ${FONT_SIZE.large};
   font-weight: 600;
-  :hover {
-    color: ${colors.blue400};
-  }
+  ${hasLink &&
+  `
+    cursor: pointer;
+    :hover { color: ${colors.blue400} }
+  `}
 `;

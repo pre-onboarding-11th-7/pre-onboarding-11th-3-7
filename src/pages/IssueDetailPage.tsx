@@ -14,7 +14,7 @@ function IssueDetailPage() {
     <>
       <Header owner={owner} repo={repo} />
       <GitHubIssueDetailProvider owner={owner} repo={repo} issueNumber={Number(issueNumber)}>
-        <main css={{ paddingTop: '5rem' }}>
+        <main css={{ padding: '5rem 0' }}>
           <IssueDetail />
         </main>
       </GitHubIssueDetailProvider>
