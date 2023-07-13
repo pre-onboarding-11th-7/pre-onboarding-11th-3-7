@@ -3,7 +3,7 @@ import { Banner, IssueCard, Layout } from "../components";
 import useIssues from "../hooks/services/useIssues";
 import { Link } from "react-router-dom";
 import { IssueResponseType } from "issue";
-import useInfinityScroll from "../hooks/useIfinityScroll";
+import useInfinityScroll from "../hooks/useInfinityScroll";
 
 const Home = () => {
   const { issues, loading, onAddFetch } = useIssues();

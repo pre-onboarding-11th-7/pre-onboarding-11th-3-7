@@ -32,9 +32,15 @@ export class IssuesService {
   }
 
   getNextPage() {
-    this.page = this.page + this.fetchCount;
+    this.page = this.page + 1;
     this.pageQuery = `&page=${this.page}`;
     return this.page;
+  }
+
+  initializedFetchData() {
+    this.page = 1;
+    this.pageQuery = `&page=${this.page}`;
+    this.fetchCount = 0;
   }
 
   async fetch() {

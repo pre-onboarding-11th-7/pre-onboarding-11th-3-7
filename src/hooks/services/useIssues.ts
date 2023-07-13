@@ -10,7 +10,8 @@ type State = {
 };
 
 function useIssues() {
-  const { issuesFetch, issuesGetNextPage } = useIssuesContext();
+  const { issuesFetch, issuesGetNextPage, issuesDataInitialized } =
+    useIssuesContext();
   const { setErrorMsg } = useErrorMessageContext();
   const [fetchState, setFetchState] = useState<State>({
     state: [],
@@ -50,6 +51,7 @@ function useIssues() {
 
   useEffect(() => {
     setErrorMsg("");
+    issuesDataInitialized();
     issuesFetch()
       .then((response) => {
         setFetchState({ ...fetchState, state: response, loading: false });

@@ -13,6 +13,7 @@ interface IssuesContextInterface {
   issuesSetUrl: (ownerAndRepo: OwnerAndRepo) => string;
   issuesOwnerAndRepo: OwnerAndRepo;
   issuesGetNextPage: () => number;
+  issuesDataInitialized: () => void;
 }
 
 const IssuesContext = createContext<IssuesContextInterface>({
@@ -24,6 +25,7 @@ const IssuesContext = createContext<IssuesContextInterface>({
     repo: "",
   },
   issuesGetNextPage: () => 1,
+  issuesDataInitialized: () => null,
 });
 export const useIssuesContext = () => useContext(IssuesContext);
 
@@ -32,6 +34,8 @@ const IssuesProvider = ({ children, issuesInstance }: IssuesProviderProps) => {
   const issuesGetUrl = issuesInstance.getFetchURL.bind(issuesInstance);
   const issuesSetUrl = issuesInstance.setChangeURL.bind(issuesInstance);
   const issuesGetNextPage = issuesInstance.getNextPage.bind(issuesInstance);
+  const issuesDataInitialized =
+    issuesInstance.initializedFetchData.bind(issuesInstance);
   const issuesOwnerAndRepo = {
     owner: issuesInstance.owner,
     repo: issuesInstance.repo,
@@ -44,6 +48,7 @@ const IssuesProvider = ({ children, issuesInstance }: IssuesProviderProps) => {
         issuesSetUrl,
         issuesOwnerAndRepo,
         issuesGetNextPage,
+        issuesDataInitialized,
       }}>
       {children}
     </IssuesContext.Provider>
