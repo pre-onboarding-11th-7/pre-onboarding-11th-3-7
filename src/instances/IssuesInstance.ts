@@ -11,8 +11,8 @@ export class IssuesService {
   private fetchCount;
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
-    this.owner = "facebook";
-    this.repo = "react";
+    this.owner = "";
+    this.repo = "";
     this.issuesURL = `${this.owner}/${this.repo}/issues`;
     this.baseQuery = `?sort=comments`;
     this.page = 1;
@@ -29,6 +29,13 @@ export class IssuesService {
     this.repo = repo;
     this.issuesURL = `${this.owner}/${this.repo}/issues`;
     return this.issuesURL;
+  }
+
+  setChangeOwnerAndRepo() {
+    return {
+      owner: this.owner,
+      repo: this.repo,
+    };
   }
 
   getNextPage() {

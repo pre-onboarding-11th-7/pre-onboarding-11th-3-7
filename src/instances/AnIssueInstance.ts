@@ -4,7 +4,7 @@ import { IssuesService } from "./IssuesInstance";
 export class AnIssueService {
   protected readonly httpClient;
   protected readonly issuesInstance;
-  protected readonly issuesURL;
+  protected issuesURL;
   constructor(httpClient: HttpClient, issuesInstance: IssuesService) {
     this.httpClient = httpClient;
     this.issuesInstance = issuesInstance;
@@ -12,6 +12,7 @@ export class AnIssueService {
   }
 
   async fetch(number: number) {
+    this.issuesURL = this.issuesInstance.getFetchURL();
     const response = await (
       await this.httpClient.fetch(`${this.issuesURL}/${number}`)
     ).json();

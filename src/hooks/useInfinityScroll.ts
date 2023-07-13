@@ -7,6 +7,9 @@ function useInfinityScroll(addFetchFn: AddFetchFn) {
     const observer = new IntersectionObserver(
       async ([e], observer) => {
         if (e.isIntersecting) {
+          document.documentElement.scrollTo({
+            top: e.target.scrollTop,
+          });
           observer.unobserve(e.target);
           await addFetchFn();
           observer.observe(e.target);

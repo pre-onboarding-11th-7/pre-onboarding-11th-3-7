@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useIssuesContext } from "../../contexts/issues";
 import { IssueResponseType } from "issue";
 import { useErrorMessageContext } from "../../contexts/errorMessage";
+import { useLocation } from "react-router-dom";
 
 type State = {
   state: IssueResponseType[];
@@ -10,8 +11,13 @@ type State = {
 };
 
 function useIssues() {
-  const { issuesFetch, issuesGetNextPage, issuesDataInitialized } =
-    useIssuesContext();
+  const {
+    issuesFetch,
+    issuesGetNextPage,
+    issuesDataInitialized,
+    issuesOwnerAndRepo,
+    issuesSetUrl,
+  } = useIssuesContext();
   const { setErrorMsg } = useErrorMessageContext();
   const [fetchState, setFetchState] = useState<State>({
     state: [],
@@ -19,6 +25,13 @@ function useIssues() {
     error: null,
   });
   const [isNowLoading, setIsNowLoading] = useState(false);
+  const ownerAndRepo = issuesOwnerAndRepo();
+  const { pathname } = useLocation();
+  const [, owner, repo] = pathname.split("/");
+
+  if (!ownerAndRepo.owner && !ownerAndRepo.repo) {
+    issuesSetUrl({ owner, repo });
+  }
 
   const onAddFetch = async () => {
     if (isNowLoading) {
@@ -67,7 +80,7 @@ function useIssues() {
     loading: fetchState.loading,
     error: fetchState.error,
     onAddFetch,
-    // TODO : change repo request
+    ownerAndRepo,
   };
 }
 

@@ -11,7 +11,7 @@ interface IssuesContextInterface {
   issuesFetch: () => Promise<IssueResponseType[]>;
   issuesGetUrl: () => string;
   issuesSetUrl: (ownerAndRepo: OwnerAndRepo) => string;
-  issuesOwnerAndRepo: OwnerAndRepo;
+  issuesOwnerAndRepo: () => OwnerAndRepo;
   issuesGetNextPage: () => number;
   issuesDataInitialized: () => void;
 }
@@ -20,10 +20,10 @@ const IssuesContext = createContext<IssuesContextInterface>({
   issuesFetch: async () => [],
   issuesGetUrl: () => "",
   issuesSetUrl: () => "",
-  issuesOwnerAndRepo: {
+  issuesOwnerAndRepo: () => ({
     owner: "",
     repo: "",
-  },
+  }),
   issuesGetNextPage: () => 1,
   issuesDataInitialized: () => null,
 });
@@ -36,10 +36,8 @@ const IssuesProvider = ({ children, issuesInstance }: IssuesProviderProps) => {
   const issuesGetNextPage = issuesInstance.getNextPage.bind(issuesInstance);
   const issuesDataInitialized =
     issuesInstance.initializedFetchData.bind(issuesInstance);
-  const issuesOwnerAndRepo = {
-    owner: issuesInstance.owner,
-    repo: issuesInstance.repo,
-  };
+  const issuesOwnerAndRepo =
+    issuesInstance.setChangeOwnerAndRepo.bind(issuesInstance);
   return (
     <IssuesContext.Provider
       value={{

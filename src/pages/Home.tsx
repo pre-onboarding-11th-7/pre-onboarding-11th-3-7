@@ -37,7 +37,7 @@ const Home = () => {
           : issues?.map((issue, idx) => (
               <li key={issue.node_id}>
                 {(idx + 1) % 5 ? (
-                  <Link to={`/${issue.number}`}>
+                  <Link to={`${issue.number}`}>
                     <MemorizedIssueCard {...issue} />
                   </Link>
                 ) : (
@@ -50,7 +50,13 @@ const Home = () => {
                 )}
               </li>
             ))}
-        <div ref={waitingRef}>{loading ? <div>Loading...</div> : null}</div>
+        <div ref={waitingRef}>
+          {loading ? (
+            <div className="border-solid rounded-md py-3 px-2 shadow-md shadow-gray-500 h-32 bg-gray-400 text-center leading-5 text-2xl">
+              Loading...
+            </div>
+          ) : null}
+        </div>
       </ul>
     </Layout>
   );

@@ -11,6 +11,7 @@ import ErrorMsgProvider from "./contexts/errorMessage";
 import { ErrorBoundary } from "./components";
 import "./styles/index.css";
 import NotFound from "./pages/NotFound";
+import Enter from "./pages/Enter";
 
 const httpClient = new HttpClient();
 const issuesInstance = new IssuesService(httpClient);
@@ -25,8 +26,9 @@ root.render(
       <IssuesProvider issuesInstance={issuesInstance}>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Enter />} />
             <Route
-              path="/"
+              path="/:owner/:repo/issues"
               element={
                 <ErrorBoundary>
                   <Home />
@@ -34,7 +36,7 @@ root.render(
               }
             />
             <Route
-              path="/:number"
+              path="/:owner/:repo/issues/:number"
               element={
                 <AnIssueProvider anIssueInstance={anIssueInstance}>
                   <ErrorBoundary>
