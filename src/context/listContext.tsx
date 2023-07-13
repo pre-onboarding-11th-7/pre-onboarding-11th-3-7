@@ -4,8 +4,12 @@ import { ListService } from "../api/ListService";
 import { Issue } from "../@types/types";
 
 const ListContext = createContext<Issue[]>([]);
+const SetListContext = createContext<
+  React.Dispatch<React.SetStateAction<Issue[]>> | undefined
+>(undefined);
 
 export const useList = () => useContext(ListContext);
+export const useSetList = () => useContext(SetListContext);
 
 export function ListProvider({
   children,
@@ -18,8 +22,14 @@ export function ListProvider({
 
   useEffect(() => {
     const data = listService.get().then(setList);
-    console.log(data);
-  }, [listService, setList]);
+    console.log("초기 값" + data);
+  }, []);
 
-  return <ListContext.Provider value={list}>{children}</ListContext.Provider>;
+  return (
+    <ListContext.Provider value={list}>
+      <SetListContext.Provider value={setList}>
+        {children}
+      </SetListContext.Provider>
+    </ListContext.Provider>
+  );
 }
