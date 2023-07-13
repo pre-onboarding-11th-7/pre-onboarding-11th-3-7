@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import Home from "./pages/Home";
 import { HttpClient } from "./instances/HttpClient";
 import { IssuesService } from "./instances/IssuesInstance";
 import IssuesProvider from "./contexts/issues";
@@ -28,7 +28,7 @@ root.render(
               path="/"
               element={
                 <ErrorBoundary>
-                  <App />
+                  <Home />
                 </ErrorBoundary>
               }
             />

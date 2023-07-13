@@ -1,8 +1,8 @@
-import { Banner, IssueCard, Layout } from "./components";
-import useIssues from "./hooks/services/useIssues";
+import { Banner, IssueCard, Layout } from "../components";
+import useIssues from "../hooks/services/useIssues";
 import { Link } from "react-router-dom";
 
-function App() {
+const Home = () => {
   const { state, loading } = useIssues();
   return (
     <Layout>
@@ -46,6 +46,6 @@ function App() {
       </ul>
     </Layout>
   );
-}
+};
 
-export default App;
+export default Home;
