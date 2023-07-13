@@ -8,7 +8,7 @@ export const Item = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  div:nth-child(2) {
+  div {
     display: flex;
     justify-content: space-between;
     min-width: 500px;
