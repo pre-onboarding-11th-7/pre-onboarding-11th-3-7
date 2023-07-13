@@ -5,6 +5,7 @@ import useIntersect from 'hooks/useIntersect';
 import colors from 'constants/colors';
 import convertToKoreanDate from 'utils/convertToKoreanDate';
 import { Skeleton } from './Skeleton';
+import { WantedAdvertisementImage } from './WantedAdvertisementImage';
 
 export function IssueList() {
   const { issueList, fetchNextIssueList, isLoading } = useGitHubIssueList();
@@ -14,26 +15,21 @@ export function IssueList() {
     <ul css={{ listStyle: 'none', padding: 0 }}>
       {issueList.map((gitHubIssue, i) => (
         <Fragment key={gitHubIssue.id}>
-          {i === 4 && <WantedAdvertisementImage />}
+          {i === 4 && (
+            <WantedAdvertisementImage
+              css={{
+                display: 'block',
+                textAlign: 'center',
+                padding: '1rem 0',
+                borderBottom: `1px solid ${BORDER_COLOR}`,
+              }}
+            />
+          )}
           <IssueItem {...gitHubIssue} />
         </Fragment>
       ))}
       {isLoading ? <IssueListSkeleton /> : <div ref={intersectRef} css={{ height: '1px' }} />}
     </ul>
-  );
-}
-
-function WantedAdvertisementImage() {
-  return (
-    <a
-      href="https://www.wanted.co.kr/"
-      css={{ display: 'block', textAlign: 'center', padding: '1rem 0', borderBottom: `1px solid ${BORDER_COLOR}` }}
-    >
-      <img
-        alt="원티드 광고"
-        src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100"
-      />
-    </a>
   );
 }
 
