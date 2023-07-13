@@ -9,7 +9,7 @@ export class ListService {
 
   async get() {
     const { data }: { data: Issue[] } = await this.httpClient.request(
-      "/repos/facebook/react/issues?state=open&sort=comments",
+      "/repos/facebook/react/issues?state=open&sort=comments&per_page=10",
       "GET"
     );
     return data;
