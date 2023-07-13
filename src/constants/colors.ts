@@ -1,12 +1,13 @@
 const white = '#ffffff';
 const grey100 = '#f2f4f6';
+const grey200 = '#e5e8eb';
 const inverseGrey50 = '#202027';
 const inverseGrey100 = '#2c2c35';
 
 const colors = {
   grey50: '#f9fafb',
   grey100,
-  grey200: '#e5e8eb',
+  grey200,
   grey300: '#d1d6db',
   grey400: '#b0b8c1',
   grey500: '#8b95a1',
@@ -124,6 +125,7 @@ const colors = {
   darkLayeredBackground: inverseGrey50,
   floatBackground: white,
   darkFloatBackground: inverseGrey100,
+  border: grey200,
 };
 
 export default colors;

@@ -10,11 +10,11 @@ import routes from 'constants/routes.ts';
 
 const router = createBrowserRouter([
   {
-    path: routes.issues,
+    path: `${routes.issues}/:owner/:repo`,
     element: <IssueListPage />,
   },
   {
-    path: `${routes.issues}/:issueNumber`,
+    path: `${routes.issues}/:owner/:repo/:issueNumber`,
     element: <IssueDetailPage />,
   },
 ]);
