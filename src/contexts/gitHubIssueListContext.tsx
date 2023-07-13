@@ -4,12 +4,14 @@ import GitHubIssueRepository from 'repository/api/GitHubIssueRepository';
 
 interface GitHubIssueListContextProps {
   isLoading: boolean;
+  isError: boolean;
   issueList: GitHubIssue[];
   fetchNextIssueList: () => void;
 }
 
 const GitHubIssueListContext = createContext<GitHubIssueListContextProps>({
   isLoading: true,
+  isError: false,
   issueList: [],
   fetchNextIssueList: () => {},
 });
@@ -22,15 +24,19 @@ interface GitHubIssueListProviderProps {
 
 export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueListProviderProps) => {
   const isEndRef = useRef(false);
+  const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [issueList, setIssueList] = useState<GitHubIssue[]>([]);
   const gitHubIssueRepository = useMemo(() => new GitHubIssueRepository({ owner, repo }), [owner, repo]);
 
   useEffect(() => {
-    gitHubIssueRepository.getIssueListPage().then(initalIssueList => {
-      setIssueList(initalIssueList);
-      setIsLoading(false);
-    });
+    gitHubIssueRepository
+      .getIssueListPage()
+      .then(initalIssueList => {
+        setIssueList(initalIssueList);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
   }, [gitHubIssueRepository]);
 
   const fetchNextIssueList = async () => {
@@ -51,7 +57,7 @@ export const GitHubIssueListProvider = ({ owner, repo, children }: GitHubIssueLi
   };
 
   return (
-    <GitHubIssueListContext.Provider value={{ isLoading, issueList, fetchNextIssueList }}>
+    <GitHubIssueListContext.Provider value={{ isLoading, isError, issueList, fetchNextIssueList }}>
       {children}
     </GitHubIssueListContext.Provider>
   );

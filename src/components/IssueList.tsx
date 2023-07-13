@@ -6,8 +6,16 @@ import { WantedAdvertisementImage } from './WantedAdvertisementImage';
 import { IssueListItem, IssueListItemSkeleton } from './IssueListItem';
 
 export function IssueList() {
-  const { issueList, fetchNextIssueList, isLoading } = useGitHubIssueList();
+  const { issueList, fetchNextIssueList, isLoading, isError } = useGitHubIssueList();
   const intersectRef = useIntersect(() => fetchNextIssueList());
+
+  if (isError) {
+    return (
+      <h1 css={{ fontSize: '1.5rem', textAlign: 'center', paddingTop: '10rem' }}>
+        해당 GitHub Repository를 찾을 수 없습니다.
+      </h1>
+    );
+  }
 
   return (
     <ul css={{ listStyle: 'none', padding: 0 }}>
