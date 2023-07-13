@@ -5,12 +5,17 @@ import './index.css';
 
 import App from './App.tsx';
 import { IssueListPage } from 'pages/IssueListPage.tsx';
+import IssueDetailPage from 'pages/IssueDetailPage.tsx';
 import routes from 'constants/routes.ts';
 
 const router = createBrowserRouter([
   {
     path: routes.issues,
     element: <IssueListPage />,
+  },
+  {
+    path: `${routes.issues}/:issueNumber`,
+    element: <IssueDetailPage />,
   },
 ]);
 
