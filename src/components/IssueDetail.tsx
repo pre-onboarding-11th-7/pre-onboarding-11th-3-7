@@ -7,7 +7,13 @@ import { IssueListItem } from './IssueListItem';
 import { Spinner } from './Spinner';
 
 export function IssueDetail() {
-  const { issue, isLoading } = useGitHubIssueDetail();
+  const { issue, isLoading, isError } = useGitHubIssueDetail();
+
+  if (isError) {
+    return (
+      <h1 css={{ fontSize: '1.5rem', textAlign: 'center', paddingTop: '10rem' }}>해당 Issue를 찾을 수 없습니다.</h1>
+    );
+  }
 
   if (isLoading) {
     return <Spinner css={{ marginTop: '10rem' }} />;

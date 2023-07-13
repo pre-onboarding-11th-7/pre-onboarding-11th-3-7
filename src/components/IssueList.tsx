@@ -12,7 +12,7 @@ export function IssueList() {
   if (isError) {
     return (
       <h1 css={{ fontSize: '1.5rem', textAlign: 'center', paddingTop: '10rem' }}>
-        해당 GitHub Repository를 찾을 수 없습니다.
+        GitHub Repository를 찾을 수 없습니다.
       </h1>
     );
   }
