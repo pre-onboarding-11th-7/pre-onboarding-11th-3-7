@@ -8,7 +8,7 @@ class HttpClient {
       baseURL: isGitHub ? 'https://api.github.com/' : '/',
     });
 
-    if (import.meta.env.VITE_IS_DEVELOPMENT) {
+    if (import.meta.env.VITE_GH_TOKEN) {
       this.interceptRequest();
     }
   }
