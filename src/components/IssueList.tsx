@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { GitHubIssue } from 'github';
 import { useGitHubIssueList } from 'contexts/gitHubIssueListContext';
 import useIntersect from 'hooks/useIntersect';
@@ -12,11 +12,28 @@ export function IssueList() {
 
   return (
     <ul css={{ listStyle: 'none', padding: 0 }}>
-      {issueList.map(gitHubIssue => (
-        <IssueItem key={gitHubIssue.id} {...gitHubIssue} />
+      {issueList.map((gitHubIssue, i) => (
+        <Fragment key={gitHubIssue.id}>
+          {i === 4 && <WantedAdvertisementImage />}
+          <IssueItem {...gitHubIssue} />
+        </Fragment>
       ))}
       {isLoading ? <IssueListSkeleton /> : <div ref={intersectRef} css={{ height: '1px' }} />}
     </ul>
+  );
+}
+
+function WantedAdvertisementImage() {
+  return (
+    <a
+      href="https://www.wanted.co.kr/"
+      css={{ display: 'block', textAlign: 'center', padding: '1rem 0', borderBottom: `1px solid ${BORDER_COLOR}` }}
+    >
+      <img
+        alt="원티드 광고"
+        src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fuserweb%2Flogo_wanted_black.png&w=110&q=100"
+      />
+    </a>
   );
 }
 
@@ -73,7 +90,7 @@ function IssueItemTemplate({ title, detail, comment }: IssueItemTemplateProps) {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '7%',
-        borderBottom: '1px solid',
+        borderBottom: `1px solid ${BORDER_COLOR}`,
       }}
     >
       <div css={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', flexGrow: 1 }}>
@@ -84,6 +101,8 @@ function IssueItemTemplate({ title, detail, comment }: IssueItemTemplateProps) {
     </li>
   );
 }
+
+const BORDER_COLOR = colors.grey200;
 
 const FONT_SIZE = {
   medium: '0.9rem',
