@@ -17,11 +17,15 @@ export function IssueList() {
     );
   }
 
+  const is5thCell = (index: number) => {
+    return index > 0 && index % 4 === 0;
+  };
+
   return (
     <ul css={{ listStyle: 'none', padding: 0 }}>
       {issueList.map((gitHubIssue, i) => (
         <Fragment key={gitHubIssue.id}>
-          {i === 4 && (
+          {is5thCell(i) && (
             <WantedAdvertisementImage
               css={{
                 display: 'block',
