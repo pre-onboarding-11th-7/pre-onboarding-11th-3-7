@@ -7,7 +7,7 @@
 ```
 $ git clone https://github.com/KingDonggyu/pre-onboarding-11th-3-7.git
 $ npm install
-$ npm run dev
+$ npm run start
 ```
 
 GitHub Access Token 환경 변수 설정 권장 (`.env.example` 참고)
