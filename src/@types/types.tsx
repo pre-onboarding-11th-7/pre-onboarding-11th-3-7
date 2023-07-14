@@ -6,3 +6,8 @@ export interface Issue {
   comments: number;
   body: string;
 }
+
+export interface OwnerRepo {
+  owner: string;
+  repo: string;
+}
