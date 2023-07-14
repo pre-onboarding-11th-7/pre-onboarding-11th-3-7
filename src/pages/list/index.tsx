@@ -3,14 +3,12 @@ import { useList } from "../../context/ListContext";
 import IssueList from "../../components/IssueList";
 import { useInView } from "react-intersection-observer";
 import { useSetPageNum } from "../../context/PageNumContext";
-import { useIsLoading } from "../../context/LoadingContext";
-import Loading from "../../components/Loading";
+import Header from "../../components/Header";
 
 function List() {
   const list = useList();
   const [ref, inview] = useInView();
   const setPageNum = useSetPageNum();
-  const isLoading = useIsLoading();
 
   useEffect(() => {
     if (list.length !== 0 && inview) {
@@ -20,13 +18,13 @@ function List() {
 
   return (
     <>
-      {!isLoading ? (
-        <>
-          <IssueList /> <div ref={ref}> 요청</div>
-        </>
-      ) : (
-        <Loading />
-      )}
+      <Header />
+      <>
+        <IssueList />{" "}
+        <div ref={ref}>
+          <img src="/loading.gif" />
+        </div>
+      </>
     </>
   );
 }
