@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./components";
 import { DetailPage, HomePage } from "./pages";
+import { IssueProvider, DetailProvider } from "./contexts";
 
 const router = createBrowserRouter([
   {
@@ -10,11 +11,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: (
+          <IssueProvider>
+            <HomePage />
+          </IssueProvider>
+        ),
       },
       {
         path: "/:num",
-        element: <DetailPage />,
+        element: (
+          <DetailProvider>
+            <DetailPage />
+          </DetailProvider>
+        ),
       },
     ],
   },
