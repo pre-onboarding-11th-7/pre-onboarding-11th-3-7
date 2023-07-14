@@ -24,12 +24,6 @@ export function ListProvider({
   const pageNum = usePageNum();
   const setIsLoading = useSetIsLoading();
 
-  // useEffect(() => {
-  //   setIsLoading?.(true);
-  //   issueService.getList().then(setList);
-  //   setIsLoading?.(false);
-  // }, []);
-
   useEffect(() => {
     setIsLoading?.(true);
 
