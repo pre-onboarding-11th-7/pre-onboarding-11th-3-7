@@ -4,6 +4,7 @@ import { IssueService } from "../api/IssueService";
 import { Issue } from "../@types/types";
 import { usePageNum } from "./PageNumContext";
 import { useSetIsLoading } from "./LoadingContext";
+import { useNavigate } from "react-router-dom";
 
 const ListContext = createContext<Issue[]>([]);
 const SetListContext = createContext<
@@ -23,6 +24,7 @@ export function ListProvider({
   const [list, setList] = useState<Issue[]>([]);
   const pageNum = usePageNum();
   const setIsLoading = useSetIsLoading();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading?.(true);
@@ -30,11 +32,11 @@ export function ListProvider({
     const fetchData = async () => {
       try {
         const newList = await issueService.getList(pageNum);
-        console.log(newList);
         setList((prevList) => [...prevList, ...newList]);
         setIsLoading?.(false);
       } catch (error) {
-        console.log(error);
+        navigate("/404");
+        return null;
       }
     };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import List from "./pages/list";
 import Detail from "./pages/detail";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HttpClient } from "./api/httpClient/httpClient";
 import { ListProvider } from "./context/ListContext";
 import { DetailProvider } from "./context/DetailContext";
@@ -9,7 +9,7 @@ import { IssueService } from "./api/IssueService";
 import { PageNumProvider } from "./context/PageNumContext";
 import Main from "./pages/main";
 import { useOwnerRepo } from "./context/OwnerRepoContext";
-
+import NotFound from "./pages/notFound";
 function App() {
   const httpClient = new HttpClient(
     process.env.REACT_APP_BASE_URL || "default-value",
@@ -43,6 +43,8 @@ function App() {
             </DetailProvider>
           }
         />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
