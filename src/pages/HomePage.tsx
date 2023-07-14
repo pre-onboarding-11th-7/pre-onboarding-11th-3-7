@@ -67,4 +67,8 @@ const inputStyle = css`
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid;
+
+  @media screen and (max-width: 480px) {
+    width: 80%;
+  }
 `;
