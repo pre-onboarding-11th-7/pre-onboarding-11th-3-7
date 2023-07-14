@@ -3,16 +3,7 @@ import { IssueService } from "../api/IssueService";
 import { getIssueNumber } from "../utils/getIssueNumber";
 import { Issue } from "../@types/types";
 
-const initailValue = {
-  number: 1,
-  title: "title",
-  user: { login: "user" },
-  created_at: "created at",
-  comments: 0,
-  body: "body",
-};
-
-const DetailContext = createContext<Issue>(initailValue); // 초기값 타입 오류
+const DetailContext = createContext<Issue | undefined>(undefined);
 
 export const useDetail = () => useContext(DetailContext);
 
@@ -23,7 +14,7 @@ export function DetailProvider({
   children: React.ReactNode;
   issueService: IssueService;
 }) {
-  const [detail, setDetail] = useState(initailValue); // 초기값 타입 오류
+  const [detail, setDetail] = useState<Issue | undefined>(undefined);
   const id = getIssueNumber();
 
   useEffect(() => {

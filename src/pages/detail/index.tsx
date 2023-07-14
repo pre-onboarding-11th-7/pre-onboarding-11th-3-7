@@ -1,13 +1,10 @@
 import { useDetail } from "../../context/DetailContext";
-import { Issue } from "../../@types/types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 function Detail() {
-  const detail: Issue = useDetail();
+  const detail = useDetail();
 
-  console.log(detail);
-  const body = detail.body;
   return (
     <div>
       {detail && (
@@ -20,8 +17,11 @@ function Detail() {
           <span>작성일 {detail.created_at}</span>
           <span>코멘트 {detail.comments}</span>
           <div>
-            {body && (
-              <ReactMarkdown children={body} remarkPlugins={[remarkGfm]} />
+            {detail.body && (
+              <ReactMarkdown
+                children={detail.body}
+                remarkPlugins={[remarkGfm]}
+              />
             )}
           </div>
         </div>
