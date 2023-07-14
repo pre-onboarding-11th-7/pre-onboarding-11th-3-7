@@ -20,7 +20,6 @@ function IssueCard({
   const navigate = useNavigate();
 
   const handleCardClick = (number: number) => {
-    console.log(number);
     navigate(`/detail/${number}`);
   };
   return (
