@@ -1,33 +1,11 @@
-import { useDetail } from "../../context/DetailContext";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import Loading from "../../components/Loading";
+import IssueDetail from "../../components/IssueDetail";
+import { useIsLoading } from "../../context/LoadingContext";
 
 function Detail() {
-  const detail = useDetail();
+  const isLoading = useIsLoading();
 
-  return (
-    <div>
-      {detail && (
-        <div>
-          <h4>
-            #{detail.number}
-            {detail.title}
-          </h4>
-          <span>작성자 {detail.user.login}</span>
-          <span>작성일 {detail.created_at}</span>
-          <span>코멘트 {detail.comments}</span>
-          <div>
-            {detail.body && (
-              <ReactMarkdown
-                children={detail.body}
-                remarkPlugins={[remarkGfm]}
-              />
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <div>{!isLoading ? <IssueDetail /> : <Loading />}</div>;
 }
 
 export default Detail;

@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { IssueService } from "../api/IssueService";
 import { Issue } from "../@types/types";
 import { usePageNum } from "./PageNumContext";
+import { useSetIsLoading } from "./LoadingContext";
 
 const ListContext = createContext<Issue[]>([]);
 const SetListContext = createContext<
@@ -21,17 +22,23 @@ export function ListProvider({
 }) {
   const [list, setList] = useState<Issue[]>([]);
   const pageNum = usePageNum();
+  const setIsLoading = useSetIsLoading();
+
+  // useEffect(() => {
+  //   setIsLoading?.(true);
+  //   issueService.getList().then(setList);
+  //   setIsLoading?.(false);
+  // }, []);
 
   useEffect(() => {
-    issueService.getList().then(setList);
-  }, []);
+    setIsLoading?.(true);
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const newList = await issueService.getList(pageNum);
         console.log(newList);
         setList((prevList) => [...prevList, ...newList]);
+        setIsLoading?.(false);
       } catch (error) {
         console.log(error);
       }

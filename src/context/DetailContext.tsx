@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { IssueService } from "../api/IssueService";
 import { getIssueNumber } from "../utils/getIssueNumber";
 import { Issue } from "../@types/types";
+import { useSetIsLoading } from "./LoadingContext";
 
 const DetailContext = createContext<Issue | undefined>(undefined);
 
@@ -16,13 +17,15 @@ export function DetailProvider({
 }) {
   const [detail, setDetail] = useState<Issue | undefined>(undefined);
   const id = getIssueNumber();
-
+  const setIsLoading = useSetIsLoading();
   useEffect(() => {
+    setIsLoading?.(true);
     if (id) {
       const fetchData = async () => {
         try {
           const { data } = await issueService.getDetail(id);
           setDetail(data);
+          setIsLoading?.(false);
         } catch (error) {
           console.log(error);
         }
