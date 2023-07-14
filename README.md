@@ -23,7 +23,7 @@ GitHub Access Token 환경 변수 설정 권장 (`.env.example` 참고)
 
 ## Demo
 
-![demo](https://github.com/KingDonggyu/pre-onboarding-11th-3-7/assets/33220404/ec73c640-bd0d-4b2a-b938-d64c2b118698)
+![demo](https://github.com/pre-onboarding-11th-7/pre-onboarding-11th-3-7/assets/33220404/e0a44a4b-aa25-43af-99ad-c4158ebc8965)
 
 ## Reference
 
