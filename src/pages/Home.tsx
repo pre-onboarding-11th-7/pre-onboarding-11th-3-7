@@ -36,17 +36,22 @@ const Home = () => {
               ))
           : issues?.map((issue, idx) => (
               <li key={issue.node_id}>
-                {(idx + 1) % 5 ? (
+                {idx === 0 || idx % 4 ? (
                   <Link to={`${issue.number}`}>
                     <MemorizedIssueCard {...issue} />
                   </Link>
                 ) : (
-                  <Link
-                    to="https://wanted.co.kr"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    <Banner />
-                  </Link>
+                  <>
+                    <Link
+                      to="https://wanted.co.kr"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <Banner />
+                    </Link>
+                    <Link to={`${issue.number}`}>
+                      <MemorizedIssueCard {...issue} />
+                    </Link>
+                  </>
                 )}
               </li>
             ))}
